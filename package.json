@@ -1,0 +1,17 @@
+{
+  "name": "telegram-web-bot-netlify",
+  "version": "1.0.0",
+  "description": "Proyecto para mostrar imágenes enviadas por un bot de Telegram utilizando Netlify y Firebase.",
+  "main": "index.js",
+  "scripts": {
+    "build": "netlify build",
+    "deploy": "netlify deploy"
+  },
+  "dependencies": {
+    "@netlify/functions": "^1.0.0",
+    "firebase-admin": "^12.5.0",
+    "node-fetch": "^3.0.0"
+  },
+  "author": "Darwin",
+  "license": "MIT"
+}

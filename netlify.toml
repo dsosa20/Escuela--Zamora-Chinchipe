@@ -1,0 +1,34 @@
+# Configuración básica de Netlify
+[build]
+  # Carpeta donde Netlify busca archivos estáticos listos para servir
+  publish = "public"
+
+  # Comando para construir el proyecto, ajústalo según sea necesario
+  command = "npm run build"  # Asegúrate de que este comando esté definido en tu package.json
+
+# Configuración de las funciones de Netlify
+[[functions]]
+  # Carpeta que contiene las funciones de Netlify
+  directory = "netlify/functions"
+
+# Rutas de redirección y reescritura
+[[redirects]]
+  from = "/api/*"
+  to = "/api/$1"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
+# Configuración de variables de entorno
+[build.environment]
+  NODE_VERSION = "20"  # Actualiza a la versión de Node.js que estás usando
+  TELEGRAM_BOT_TOKEN = "${TELEGRAM_BOT_TOKEN}"
+  FIREBASE_PROJECT_ID = "${FIREBASE_PROJECT_ID}" 
+  FIREBASE_PRIVATE_KEY = "${FIREBASE_PRIVATE_KEY}"
+  FIREBASE_CLIENT_EMAIL = "${FIREBASE_CLIENT_EMAIL}"
+  FIREBASE_STORAGE_BUCKET = "${FIREBASE_STORAGE_BUCKET}"
