@@ -24,7 +24,7 @@ const bucket = admin.storage().bucket();
 
 exports.handler = async function(event, context) {
   try {
-    // Agregar logging para el cuerpo de la solicitud
+    // Logging para el cuerpo de la solicitud
     console.log('Request Body:', event.body);
 
     // Verificar si el cuerpo de la solicitud está vacío
@@ -37,48 +37,58 @@ exports.handler = async function(event, context) {
 
     const body = JSON.parse(event.body);
 
-    // Agregar logging para los datos recibidos
-    console.log('Parsed Body:', body);
+    // Verificar si la solicitud proviene de Telegram y contiene un mensaje con una foto
+    if (body.message && body.message.photo) {
+      // Obtener el ID del archivo de la foto de la mayor resolución
+      const fileId = body.message.photo[body.message.photo.length - 1].file_id;
 
-    // Verificar si los campos esperados están presentes
-    if (!body.file_path || !body.file_name) {
+      // Obtener la información del archivo desde Telegram
+      const fileResponse = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getFile?file_id=${fileId}`);
+      const fileData = await fileResponse.json();
+
+      if (!fileData.ok) {
+        throw new Error('Error getting file from Telegram');
+      }
+
+      const filePath = fileData.result.file_path;
+      const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${filePath}`;
+      const fileName = `images/${Date.now()}_${filePath.split('/').pop()}`;
+
+      // Descargar el archivo desde Telegram
+      console.log('Fetching file from Telegram:', fileUrl);
+      const response = await fetch(fileUrl);
+      const buffer = await response.buffer();
+      console.log('File downloaded, size:', buffer.length);
+
+      // Guardar el archivo en Firebase Storage
+      console.log('Saving file to Firebase Storage:', fileName);
+      const file = bucket.file(fileName);
+      await file.save(buffer);
+      console.log('File saved to Firebase Storage');
+
+      // Generar la URL pública
+      const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
+      console.log('Public URL:', publicUrl);
+
+      // Guardar la URL en Firestore
+      await db.collection('images').add({
+        url: publicUrl,
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+      });
+      console.log('URL saved to Firestore');
+
+      // Retornar una respuesta exitosa
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: 'Image uploaded successfully' }),
+      };
+    } else {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: 'Bad Request: Missing file_path or file_name in the request body' }),
+        body: JSON.stringify({ message: 'Bad Request: No photo found in the message' }),
       };
     }
 
-    const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${body.file_path}`;
-    const fileName = `images/${Date.now()}_${body.file_name}`;
-
-    // Descargar el archivo desde Telegram
-    console.log('Fetching file from Telegram:', fileUrl);
-    const response = await fetch(fileUrl);
-    const buffer = await response.buffer();
-    console.log('File downloaded, size:', buffer.length);
-
-    // Guardar el archivo en Firebase Storage
-    console.log('Saving file to Firebase Storage:', fileName);
-    const file = bucket.file(fileName);
-    await file.save(buffer);
-    console.log('File saved to Firebase Storage');
-
-    // Generar la URL pública
-    const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
-    console.log('Public URL:', publicUrl);
-
-    // Guardar la URL en Firestore
-    await db.collection('images').add({
-      url: publicUrl,
-      timestamp: admin.firestore.FieldValue.serverTimestamp()
-    });
-    console.log('URL saved to Firestore');
-
-    // Retornar una respuesta exitosa
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Image uploaded successfully' }),
-    };
   } catch (error) {
     console.error('Error:', error);
     return {
