@@ -36,15 +36,19 @@ exports.handler = async function(event, context) {
     }
 
     const body = JSON.parse(event.body);
+    console.log('Parsed Body:', body); // Agregado para verificar el cuerpo
 
     // Verificar si la solicitud proviene de Telegram y contiene un mensaje con una foto
     if (body.message && body.message.photo) {
       // Obtener el ID del archivo de la foto de la mayor resolución
       const fileId = body.message.photo[body.message.photo.length - 1].file_id;
+      console.log('File ID:', fileId); // Agregado para verificar el fileId
 
       // Obtener la información del archivo desde Telegram
       const fileResponse = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getFile?file_id=${fileId}`);
       const fileData = await fileResponse.json();
+
+      console.log('File Data:', fileData); // Agregado para verificar la respuesta de Telegram
 
       if (!fileData.ok) {
         throw new Error('Error getting file from Telegram');

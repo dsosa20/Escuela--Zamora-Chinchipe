@@ -10,7 +10,7 @@
   "dependencies": {
     "@netlify/functions": "^1.0.0",
     "firebase-admin": "^12.5.0",
-    "node-fetch": "^3.0.0"
+    "node-fetch": "^3.3.2"
   },
   "author": "Darwin",
   "license": "MIT"
