@@ -23,30 +23,55 @@ const db = admin.firestore();
 const bucket = admin.storage().bucket();
 
 exports.handler = async function(event, context) {
-  const body = JSON.parse(event.body);
-  const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${body.file_path}`;
-  const fileName = `images/${Date.now()}_${body.file_name}`;
+  try {
+    // Verificar si el cuerpo de la solicitud está vacío
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Bad Request: Missing request body' }),
+      };
+    }
 
-  // Descargar el archivo desde Telegram
-  const response = await fetch(fileUrl);
-  const buffer = await response.buffer();
+    const body = JSON.parse(event.body);
 
-  // Guardar el archivo en Firebase Storage
-  const file = bucket.file(fileName);
-  await file.save(buffer);
+    // Verificar si los campos esperados están presentes
+    if (!body.file_path || !body.file_name) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Bad Request: Missing file_path or file_name in the request body' }),
+      };
+    }
 
-  // Generar la URL pública
-  const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
+    const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${body.file_path}`;
+    const fileName = `images/${Date.now()}_${body.file_name}`;
 
-  // Guardar la URL en Firestore
-  await db.collection('images').add({
-    url: publicUrl,
-    timestamp: admin.firestore.FieldValue.serverTimestamp()
-  });
+    // Descargar el archivo desde Telegram
+    const response = await fetch(fileUrl);
+    const buffer = await response.buffer();
 
-  // Retornar una respuesta exitosa
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'Image uploaded successfully' }),
-  };
+    // Guardar el archivo en Firebase Storage
+    const file = bucket.file(fileName);
+    await file.save(buffer);
+
+    // Generar la URL pública
+    const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
+
+    // Guardar la URL en Firestore
+    await db.collection('images').add({
+      url: publicUrl,
+      timestamp: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    // Retornar una respuesta exitosa
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Image uploaded successfully' }),
+    };
+  } catch (error) {
+    console.error('Error:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal Server Error', error: error.message }),
+    };
+  }
 };
