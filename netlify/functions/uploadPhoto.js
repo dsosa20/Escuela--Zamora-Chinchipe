@@ -24,6 +24,9 @@ const bucket = admin.storage().bucket();
 
 exports.handler = async function(event, context) {
   try {
+    // Agregar logging para el cuerpo de la solicitud
+    console.log('Request Body:', event.body);
+
     // Verificar si el cuerpo de la solicitud está vacío
     if (!event.body) {
       return {
@@ -33,6 +36,9 @@ exports.handler = async function(event, context) {
     }
 
     const body = JSON.parse(event.body);
+
+    // Agregar logging para los datos recibidos
+    console.log('Parsed Body:', body);
 
     // Verificar si los campos esperados están presentes
     if (!body.file_path || !body.file_name) {
@@ -46,21 +52,27 @@ exports.handler = async function(event, context) {
     const fileName = `images/${Date.now()}_${body.file_name}`;
 
     // Descargar el archivo desde Telegram
+    console.log('Fetching file from Telegram:', fileUrl);
     const response = await fetch(fileUrl);
     const buffer = await response.buffer();
+    console.log('File downloaded, size:', buffer.length);
 
     // Guardar el archivo en Firebase Storage
+    console.log('Saving file to Firebase Storage:', fileName);
     const file = bucket.file(fileName);
     await file.save(buffer);
+    console.log('File saved to Firebase Storage');
 
     // Generar la URL pública
     const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
+    console.log('Public URL:', publicUrl);
 
     // Guardar la URL en Firestore
     await db.collection('images').add({
       url: publicUrl,
       timestamp: admin.firestore.FieldValue.serverTimestamp()
     });
+    console.log('URL saved to Firestore');
 
     // Retornar una respuesta exitosa
     return {
