@@ -1,14 +1,144 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galería de Fotos del Bot de Telegram</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad Educativa Zamora Chinchipe</title>
+    <link rel="icon" href="img/icono.png">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="contenido.css">
 </head>
 <body>
-  <h1>Galería de Fotos del Bot de Telegram</h1>
-  <div id="gallery"></div>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav__left">
+                <img src="img/icono.png" alt="Logo" class="nav__logo">
+            </div>
+            <ul class="nav__links">
+                <li class="nav__item"><a href="#" class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="#iden" class="nav__link">Identidad Institucional</a></li>
+                <li class="nav__item"><a href="/public/vision.html" class="nav__link">Vision y Mision</a></li>
+                <li class="nav__item"><a href="#valores" class="nav__link">Nuesros Valores</a></li>
+                <li class="nav__item"><a href="/public/telegram.html" class="nav__link">Telegram</a></li>
+            </ul>
+            <div class="menu__hamburguer">
+                <img src="assets/menu.svg" class="menu__img" alt="Menu">
+            </div>
+        </nav>
+    </header>
+
+    <section class="carrusel">
+        <div class="carousel-container">
+            <div class="carousel-slides">
+                <img src="img/escuela.jpg" alt="Imagen 1" class="carousel-slide">
+                <img src="img/institucion.jpg" alt="Imagen 2" class="carousel-slide">
+                <img src="img/carrucel.jpg" alt="Imagen 3" class="carousel-slide">
+            </div>
+            <div class="carousel-indicators"></div>
+        </div>
+    </section>
+    
+    <section class="imagen-texto-seccion">
+        <div class="contenedor">
+          <div class="imagen">
+            <img src="img/escuela.jpg" alt="Descripción de la imagen">
+          </div>
+          <div class="texto">
+            <h2 id="iden">Identidad Institucional</h2>
+            <p>La Escuela de Educación Básica Fiscal Mixta “Zamora Chinchipe” ha plasmado objetivos y aspiraciones que han 
+                brindado logros hacia los estudiantes, por tal motivo la “educación  personalizada e integral” no es un slogan sino 
+                una verdad; se trabaja con grupos pequeños y en un ambiente de familiaridad que permite mantener una relación adecuada 
+                entre padres, maestros y estudiantes.</p>
+            <p>El respeto a la individualidad es muy importante y el desarrollo integral de la persona, nuestro fin, es la  preparación 
+                académica del estudiante como parte primordial y llegando al Buen Vivir.</p>
+            <a href="/public/identidad.html" class="boton">Leer más</a>
+          </div>
+        </div>
+    </section>
+
+    <section class="valores-institucionales">
+        <div class="container">
+            <h2 id="valores">Ideario Institucional</h2>
+            <div class="valores">
+                <div class="columna">
+                    <div class="valor">
+                        <div class="valor-circulo">
+                            <img src="img/igualdad.png" alt="Igualdad">
+                        </div>
+                        <div class="valor-contenido">
+                            <h3>Igualdad</h3>
+                            <p>Se garantiza la igualdad de condiciones, oportunidades y trato entre hombres y mujeres, sin discriminación 
+                                de ningún tipo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="columna">
+                    <div class="valor">
+                        <div class="valor-circulo">
+                            <img src="img/autonomia.png" alt="Autonomía">
+                        </div>
+                        <div class="valor-contenido">
+                            <h3>Autonomía</h3>
+                            <p>Educamos a nuestros estudiantes con autonomía en el ejercicio de sus libertades de expresión (toma de 
+                                decisiones) participación estudiantil y hacia la comunidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="valores-institucionales">
+        <div class="container">
+            <div class="valores">
+                <div class="columna">
+                    <div class="valor">
+                        <div class="valor-circulo">
+                            <img src="img/derecho.png" alt="Derecho">
+                        </div>
+                        <div class="valor-contenido">
+                            <h3>Derecho</h3>
+                            <p>Garantizamos a nuestros estudiantes su derecho a recibir una educación personalizada, brindando a cada uno de 
+                                nuestros dicentes confianza y seguridad en el proceso de Enseñanza-Aprendizaje (tus preguntas yo te ayudo) 
+                                rigiéndonos al Buen Vivir.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="columna">
+                    <div class="valor">
+                        <div class="valor-circulo">
+                            <img src="img/respeto.png" alt="Respeto">
+                        </div>
+                        <div class="valor-contenido">
+                            <h3>Respeto</h3>
+                            <p>Nuestro establecimiento tendrá un ambiente de respeto hacia los estudiantes, autoridades y padres de familia; 
+                                compromiso hacia la comunidad educativa; consideración y solidaridad hacia los padres de familia; dado que se 
+                                desarrolle un ambiente armónico y de felicidad.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h3>Contáctanos</h3>
+                    <div class="contact-details">
+                        <p>Email: contacto@ejemplo.com</p>
+                        <p>Teléfono: +123 456 7890</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Unidad Educativa Zamora Chinchipe. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+<script src="menu.js"></script>
+<script src="carrucel.js"></script>
 </body>
 </html>

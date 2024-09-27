@@ -25,9 +25,25 @@ onSnapshot(q, snapshot => {
   gallery.innerHTML = ''; // Limpiar la galería antes de agregar las nuevas imágenes
   snapshot.forEach(doc => {
     const photo = doc.data();
+    const photoCard = document.createElement('div');
+    photoCard.className = 'photo-card';
+
     const img = document.createElement('img');
     img.src = photo.url;
     img.className = 'photo';
-    gallery.appendChild(img);
+    photoCard.appendChild(img);
+
+    // Convertir el timestamp a fecha y hora
+    const date = new Date(photo.timestamp.seconds * 1000);
+    const dateString = date.toLocaleDateString('es-ES');
+    const timeString = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+    // Agregar el contenedor de la fecha y hora
+    const photoInfo = document.createElement('div');
+    photoInfo.className = 'photo-info';
+    photoInfo.innerHTML = `<span class="date">${dateString}</span><span class="time">${timeString}</span>`;
+
+    photoCard.appendChild(photoInfo);
+    gallery.appendChild(photoCard);
   });
 });
