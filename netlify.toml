@@ -16,7 +16,7 @@
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/telegram.html"
   status = 200
 
 # Configuración de variables de entorno
