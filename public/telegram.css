@@ -1,15 +1,13 @@
 .titulo {
-  background-color: #273646;
+  background-color: white;
   padding: 20px;
-  color: white;
+  color: #003366;
   text-align: right; 
-  margin: 140px auto; 
-  width: fit-content; 
+  margin: 120px auto; 
+  width: fit-content;
   max-width: 90%; 
   margin-left: auto; 
 }
-
-  
   h1 {
     margin: 0;
     font-size: 2.5em;
@@ -29,7 +27,6 @@
     align-items: center;
   }
   
-  /* Tarjeta de imagen con detalles de fecha y hora */
   .photo-card {
     position: relative;
     width: 100%;
