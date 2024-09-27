@@ -1,10 +1,14 @@
-  .titulo {
-    background-color: #273646;
-    padding: 20px;
-    color: white;
-    text-align: center;
-    margin: 140px auto;
-  }
+.titulo {
+  background-color: #273646;
+  padding: 20px;
+  color: white;
+  text-align: right; 
+  margin: 140px auto; 
+  width: fit-content; 
+  max-width: 90%; 
+  margin-left: auto; 
+}
+
   
   h1 {
     margin: 0;
@@ -66,7 +70,7 @@
     font-weight: 600;
   }
   
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
     #gallery {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }

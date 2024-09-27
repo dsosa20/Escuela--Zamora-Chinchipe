@@ -41,20 +41,19 @@ h2 {
     width: 80%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para la imagen */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     object-fit: cover;
 }
 
-/* Estilos para pantallas pequeñas (responsivo) */
 @media (max-width: 768px) {
     .content {
-        flex-direction: column; /* Apilar contenido en pantallas pequeñas */
+        flex-direction: column; 
         text-align: center;
     }
 
     .text, .image {
         padding: 10px;
-        width: 100%; /* El contenido ocupará el 100% en móviles */
+        width: 100%; 
     }
 
     .image img {
