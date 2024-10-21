@@ -1,7 +1,5 @@
 const admin = require('firebase-admin');
-
-// Importación dinámica de node-fetch
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 admin.initializeApp({
   credential: admin.credential.cert({
@@ -22,12 +20,10 @@ admin.initializeApp({
 const db = admin.firestore();
 const bucket = admin.storage().bucket();
 
-exports.handler = async function(event, context) {
+exports.handler = async function (event, context) {
   try {
-    // Logging para el cuerpo de la solicitud
     console.log('Request Body:', event.body);
 
-    // Verificar si el cuerpo de la solicitud está vacío
     if (!event.body) {
       return {
         statusCode: 400,
@@ -36,19 +32,16 @@ exports.handler = async function(event, context) {
     }
 
     const body = JSON.parse(event.body);
-    console.log('Parsed Body:', body); // Agregado para verificar el cuerpo
+    console.log('Parsed Body:', body);
 
-    // Verificar si la solicitud proviene de Telegram y contiene un mensaje con una foto
+    // Proceso para fotos
     if (body.message && body.message.photo) {
-      // Obtener el ID del archivo de la foto de la mayor resolución
       const fileId = body.message.photo[body.message.photo.length - 1].file_id;
-      console.log('File ID:', fileId); // Agregado para verificar el fileId
+      console.log('File ID:', fileId);
 
-      // Obtener la información del archivo desde Telegram
       const fileResponse = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getFile?file_id=${fileId}`);
       const fileData = await fileResponse.json();
-
-      console.log('File Data:', fileData); // Agregado para verificar la respuesta de Telegram
+      console.log('File Data:', fileData);
 
       if (!fileData.ok) {
         throw new Error('Error getting file from Telegram');
@@ -58,40 +51,55 @@ exports.handler = async function(event, context) {
       const fileUrl = `https://api.telegram.org/file/bot${process.env.TELEGRAM_BOT_TOKEN}/${filePath}`;
       const fileName = `images/${Date.now()}_${filePath.split('/').pop()}`;
 
-      // Descargar el archivo desde Telegram
       console.log('Fetching file from Telegram:', fileUrl);
       const response = await fetch(fileUrl);
       const buffer = await response.buffer();
       console.log('File downloaded, size:', buffer.length);
 
-      // Guardar el archivo en Firebase Storage
       console.log('Saving file to Firebase Storage:', fileName);
       const file = bucket.file(fileName);
       await file.save(buffer);
       console.log('File saved to Firebase Storage');
 
-      // Generar la URL pública
       const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
       console.log('Public URL:', publicUrl);
 
-      // Guardar la URL en Firestore
       await db.collection('images').add({
         url: publicUrl,
-        timestamp: admin.firestore.FieldValue.serverTimestamp()
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
       });
       console.log('URL saved to Firestore');
 
-      // Retornar una respuesta exitosa
       return {
         statusCode: 200,
         body: JSON.stringify({ message: 'Image uploaded successfully' }),
       };
-    } else {
+    }
+
+    // Proceso para texto
+    if (body.message && body.message.text) {
+      const textMessage = body.message.text;
+      console.log('Text Message:', textMessage);
+
+      // Guardar el mensaje de texto en Firestore
+      await db.collection('messages').add({
+        text: textMessage,
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+        from: body.message.from.username || body.message.from.first_name, // Guarda el nombre del usuario
+      });
+      console.log('Text message saved to Firestore');
+
       return {
-        statusCode: 400,
-        body: JSON.stringify({ message: 'Bad Request: No photo found in the message' }),
+        statusCode: 200,
+        body: JSON.stringify({ message: 'Text message processed successfully' }),
       };
     }
+
+    // Si no hay ni foto ni texto en el mensaje
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'Bad Request: No photo or text found in the message' }),
+    };
 
   } catch (error) {
     console.error('Error:', error);
