@@ -1,14 +1,9 @@
-# Configuración básica de Netlify
 [build]
-  # Carpeta donde Netlify busca archivos estáticos listos para servir
   publish = "public"
 
-# Configuración de las funciones de Netlify
 [functions]
-  # Carpeta que contiene las funciones de Netlify
   directory = "netlify/functions"
 
-# Rutas de redirección y reescritura
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
@@ -19,7 +14,6 @@
   to = "/index.html"
   status = 200
 
-# Configuración de variables de entorno
 [build.environment]
   NODE_VERSION = "20"  # Versión de Node.js que estás usando
   TELEGRAM_BOT_TOKEN = "${TELEGRAM_BOT_TOKEN}"
