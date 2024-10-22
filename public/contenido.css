@@ -194,6 +194,7 @@ h2 {
     font-size: 1rem;
     color: #666;
     line-height: 1.5;
+    text-align: justify;
 }
 
 @media (max-width: 768px) {
@@ -223,5 +224,6 @@ h2 {
 
     .valor p {
         font-size: 0.9rem; 
+        text-align: justify;
     }
 }
