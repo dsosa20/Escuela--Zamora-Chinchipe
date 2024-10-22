@@ -1,10 +1,11 @@
+/* Encabezado */
 .titulo {
   background-color: #f4f4f4;
   padding: 20px;
   color: #003366;
-  text-align: center; 
-  margin: 0 auto; 
-  max-width: 90%; 
+  text-align: center;
+  margin: 0 auto;
+  max-width: 90%;
   border-bottom: 2px solid #003366;
 }
 
@@ -13,12 +14,14 @@ h1 {
   font-size: 2.5em;
 }
 
+/* Contenedor de Galería */
 #gallery-container {
   max-width: 1200px;
   margin: 30px auto;
   padding: 0 10px;
 }
 
+/* Sección de Blog */
 .blog-section {
   max-width: 800px;
   margin: 20px auto;
@@ -35,39 +38,105 @@ h1 {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.message-card img {
+/* Tarjetas de Fotos */
+.photo-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  text-align: center;
+  padding: 15px;
+}
+
+.photo-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.photo {
   width: 100%;
   height: auto;
   border-radius: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
+/* Información de la foto (fecha y hora) */
+.photo-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.photo-info .date {
+  font-weight: bold;
+  color: #333;
+}
+
+.photo-info .time {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Imagenes más pequeñas */
+.message-card img {
+  width: 80%; /* Reducir el tamaño de las imágenes */
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Texto del mensaje */
 .message-card p {
   font-size: 1.2em;
   color: #333;
   line-height: 1.6;
   margin-bottom: 10px;
+  text-align: justify;
 }
 
+/* Información adicional del mensaje */
 .message-info {
   display: flex;
   justify-content: space-between;
   color: #666;
   font-size: 0.9em;
   margin-top: 10px;
+  align-items: center;
 }
 
-.message-info .date,
+/* Mejora de la visualización de la fecha */
+.message-info .date {
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 .message-info .time {
   font-weight: 600;
+  color: #333;
 }
 
+/* Información del remitente */
 .sender {
   font-size: 1em;
   font-weight: bold;
   color: #003366;
+  margin-top: 10px;
+  display: block;
 }
 
+/* Contenedor de galería */
 #gallery {
   display: flex;
   flex-direction: column;
@@ -75,6 +144,7 @@ h1 {
   justify-items: center;
 }
 
+/* Adaptación para pantallas más pequeñas */
 @media (max-width: 800px) {
   .blog-section {
     padding: 15px;
@@ -82,5 +152,13 @@ h1 {
 
   .message-card p {
     font-size: 1.1em;
+  }
+
+  .message-card img {
+    width: 90%; /* Aumentar ligeramente el tamaño de la imagen en pantallas pequeñas */
+  }
+
+  .message-info .date {
+    font-size: 0.8em;
   }
 }
