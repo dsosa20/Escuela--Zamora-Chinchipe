@@ -1,9 +1,9 @@
 .titulo {
   background-color: #f4f4f4;
   padding: 20px;
-  color: white;
+  color: #003366;
   text-align: center; 
-  margin: 100px auto 0 auto; /* Agrega más margen superior (40px) */
+  margin: 100px auto 0 auto;
   max-width: 90%;
   border-bottom: 2px solid white;
   display: flex;
