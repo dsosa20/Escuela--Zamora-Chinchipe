@@ -7,6 +7,7 @@
     <link rel="icon" href="img/icono.png">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="telegram.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Enlaza con el nuevo archivo CSS de la galería -->
     <script type="module" src="app.js"></script>
 </head>
 <body>
@@ -18,7 +19,7 @@
             <ul class="nav__links">
                 <li class="nav__item"><a href="index.html" class="nav__link">Inicio</a></li>
                 <li class="nav__item"><a href="index.html#iden" class="nav__link">Identidad Institucional</a></li>
-                <li class="nav__item"><a href="vision.html" class="nav__link">Vision y Mision</a></li>
+                <li class="nav__item"><a href="vision.html" class="nav__link">Visión y Misión</a></li>
                 <li class="nav__item"><a href="index.html#valores" class="nav__link">Nuestros Valores</a></li>
                 <li class="nav__item"><a href="telegram.html" class="nav__link">Telegram</a></li>
             </ul>
@@ -28,19 +29,18 @@
         </nav>
     </header>
 
-
     <header class="titulo">
         <h1>Blog de Fotos y Mensajes del Bot de Telegram</h1>
-      </header>
-    
-      <section id="blog-content">
+    </header>
+
+    <section id="blog-content">
         <article class="blog-section">
-          <h2>Fotos y Mensajes Recibidos</h2>
-          <div id="gallery-messages-container">
-            <!-- Las fotos y los mensajes se cargarán aquí -->
-          </div>
+            <h2>Fotos y Mensajes Recibidos</h2>
+            <div id="gallery-messages-container">
+                <div id="gallery" class="gallery"></div> <!-- Aquí se cargará la galería de fotos -->
+            </div>
         </article>
-      </section>
+    </section>
 
     <footer>
         <div class="footer-container">
@@ -58,7 +58,7 @@
             </div>
         </div>
     </footer>
-    
-<script src="menu.js"></script>
+
+    <script src="menu.js"></script>
 </body>
 </html>

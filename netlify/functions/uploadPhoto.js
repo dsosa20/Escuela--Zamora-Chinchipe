@@ -64,11 +64,13 @@ exports.handler = async function (event, context) {
       const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${process.env.FIREBASE_STORAGE_BUCKET}/o/${encodeURIComponent(fileName)}?alt=media`;
       console.log('Public URL:', publicUrl);
 
+      // Guardar la URL de la imagen y la descripción en Firestore
       await db.collection('images').add({
         url: publicUrl,
+        description: body.message.caption || '', // Guarda la descripción si está disponible, o una cadena vacía si no
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
       });
-      console.log('URL saved to Firestore');
+      console.log('URL and description saved to Firestore');
 
       return {
         statusCode: 200,
