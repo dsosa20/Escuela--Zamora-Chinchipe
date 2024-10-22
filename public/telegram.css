@@ -1,10 +1,11 @@
 .titulo {
   background-color: #f4f4f4;
   padding: 20px;
+  color: white;
   text-align: center; 
   margin: 100px auto 0 auto; /* Agrega más margen superior (40px) */
   max-width: 90%;
-  border-bottom: 2px solid #003366;
+  border-bottom: 2px solid white;
   display: flex;
   justify-content: center; 
   align-items: center; 
