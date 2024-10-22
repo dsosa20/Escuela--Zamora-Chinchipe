@@ -2,74 +2,85 @@
   background-color: #f4f4f4;
   padding: 20px;
   color: #003366;
-  text-align: right; 
-  margin: 120px auto; 
-  width: fit-content;
+  text-align: center; 
+  margin: 0 auto; 
   max-width: 90%; 
-  margin-left: auto; 
+  border-bottom: 2px solid #003366;
 }
-  h1 {
-    margin: 0;
-    font-size: 2.5em;
+
+h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+#gallery-container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 10px;
+}
+
+.blog-section {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-section:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.message-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.message-card p {
+  font-size: 1.2em;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.message-info {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.message-info .date,
+.message-info .time {
+  font-weight: 600;
+}
+
+.sender {
+  font-size: 1em;
+  font-weight: bold;
+  color: #003366;
+}
+
+#gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-items: center;
+}
+
+@media (max-width: 800px) {
+  .blog-section {
+    padding: 15px;
   }
-  
-  #gallery-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 10px;
+
+  .message-card p {
+    font-size: 1.1em;
   }
-  
-  #gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  .photo-card {
-    position: relative;
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .photo-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  .photo {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .photo-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 0.9em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .photo-info .date,
-  .photo-info .time {
-    font-weight: 600;
-  }
-  
-  @media (max-width: 800px) {
-    #gallery {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  }
-  
+}
