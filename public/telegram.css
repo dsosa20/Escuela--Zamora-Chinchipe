@@ -60,9 +60,13 @@ h1 {
 .photo-description {
   font-size: 1.3em; 
   color: #333;
-  line-height: 1.6;
-  text-align: justify;
-  margin: 10px 15px 10px 15px; 
+  line-height: 1.8; 
+  text-align: justify; 
+  margin: 20px 30px 20px 30px; 
+  padding: 10px; 
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .photo-info {
@@ -98,7 +102,10 @@ h1 {
   }
 
   .photo-description {
-      font-size: 1.1em;
+      font-size: 1.1em; 
+      margin: 15px 10px; 
+      line-height: 1.6;
+      padding: 8px; 
   }
 
   .photo {
